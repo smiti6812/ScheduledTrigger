@@ -18,7 +18,7 @@ jobs:
         run: echo "${{ github.event.inputs.name }}"
       - name: Call initialize parameters
         id: unittest  
-        uses: ./action.yml
+        uses: ./
         with:
           platform: x64
       - name: Print parameters
