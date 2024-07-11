@@ -1,15 +1,7 @@
 name: My inputs
 
 on:
-  push:
-    inputs:
-      targetPlatform:
-        type: choice
-        description: Target platform
-        default: x64
-        options:
-          - x64         
-          - x86
+  push:   
   workflow_dispatch:
     inputs:
       targetPlatform:
@@ -20,9 +12,10 @@ on:
           - x64         
           - x86
 
-
+ 
 env:
   configuration: Release
+  targetPlatform: ${{github.event.inputs.targetPlatform == '' && 'x64' || github.event.inputs.targetPlatform }}
   
 jobs:
   greet:
@@ -31,12 +24,14 @@ jobs:
       - name: Checkout current repo
         uses: actions/checkout@v3
       - name: Send greeting
-        run: echo "${{ github.event.inputs.targetPlatform }}"
+        run: |
+          echo "${{ github.event.inputs.targetPlatform }}"
+          echo "${{ env.targetPlatform }}"
       - name: Call initialize parameters
         id: unittest  
         uses: ./
         with:
-          platform: ${{ github.event.inputs.targetPlatform }}
+          platform: ${{ env.targetPlatform }}
       - name: Print parameters
         id: unittestparams
         run: |
