@@ -33,7 +33,7 @@ runs:
         $crashManagementPath = ""
         $simulationWrapperPath = ""
         $installer= ""
-        if ($platform == 'x64'){
+        if ($platform eq 'x64'){
            $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release\\MDSng_SimCoreExtensions.UnitTest.dll"
            $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x64\\Release\\CrashDataManagement.UnitTests.dll"
            $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release\\SimulationWrapper.UnitTest.dll"
