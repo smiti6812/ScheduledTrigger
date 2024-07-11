@@ -26,6 +26,7 @@ runs:
   steps:     
    - name: Initialize build parameters     
      id: unittestpath
+     shell: powershell
      run: |
         $platform =  "${{inputs.platform}}"
         $simCorePath = ""
