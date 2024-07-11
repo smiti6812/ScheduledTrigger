@@ -29,7 +29,7 @@ jobs:
           echo "${{ env.targetPlatform }}"
       - name: Call initialize parameters
         id: unittest  
-        uses: ./.github/workflows/Actions/initialize_action.yml
+        uses: ./.github/workflows/Actions/action.yml
         with:
           platform: ${{ env.targetPlatform }}
       - name: Print parameters
