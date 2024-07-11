@@ -37,7 +37,7 @@ jobs:
         run: |
          echo "Configuration: ${{ env.configuration }}"
           echo "${{steps.unittest.outputs.simCoreExtenSionUnitTestPath}}"
-          echo "${{steps.unittest.outputs.simCoreExtenSionSearchDir}}"
+          echo "${{steps.unittest.outputs.simCoreExtensionSearchDir}}"
           echo "${{steps.unittest.outputs.crashManagementUnitTestPath}}"
           echo "${{steps.unittest.outputs.crashManagementSearchDir}}"
           echo "${{steps.unittest.outputs.simulationWrapperUnitTestPath}}"
