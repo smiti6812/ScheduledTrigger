@@ -1,6 +1,7 @@
 name: My inputs
 
 on:
+  push:   
   workflow_dispatch:
     inputs:
       targetPlatform:
@@ -8,8 +9,13 @@ on:
         description: Target platform
         default: x64
         options:
-          - x64
-          - x86    
+          - x64         
+          - x86
+
+
+env:
+  configuration: Release
+  
 jobs:
   greet:
     runs-on: windows-latest
@@ -26,7 +32,9 @@ jobs:
       - name: Print parameters
         id: unittestparams
         run: |
+         echo "Configuration: ${{ env.configuration }}"
           echo "${{steps.unittest.outputs.simCoreExtenSionUnitTestPath}}"
+          echo "${{steps.unittest.outputs.simCoreExtenSionSearchDir}}"
           echo "${{steps.unittest.outputs.crashManagementUnitTestPath}}"
           echo "${{steps.unittest.outputs.crashManagementSearchDir}}"
           echo "${{steps.unittest.outputs.simulationWrapperUnitTestPath}}"
