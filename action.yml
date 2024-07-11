@@ -1,1 +1,52 @@
+name: Initialize platform related parameters
 
+inputs:  
+  platform:    
+    description: targetPlatform of the application
+    required: true 
+    
+
+ 
+outputs: 
+  simCoreExtenSionUnitTestPath:
+    value: ${{steps.unittestpath.outputs.simCoreExtenSionUnitTestPath}}
+    description: Path to SimCoreExtension UnitTests
+  crashManagementUnitTestPath:
+    value: ${{steps.unittestpath.outputs.crashManagementUnitTestPath}}
+    description: Path to CrashManagement UnitTests
+  simulationWrapperUnitTestPath:
+    value: ${{steps.unittestpath.outputs.simulationWrapperUnitTestPath}}
+    description: Path to SimulationWrapper UnitTests
+  installerName:
+    value: ${{steps.unittestpath.outputs.installerName}}
+    description: Name of the installer based on target platform information
+
+runs:
+  using: "composite"
+  steps:     
+   - name: Initialize build parameters     
+     id: unittestpath
+     run: |
+        $platform =  ${{inputs.platform}}
+        $simCorePath = ""
+        $crashManagementPath = ""
+        $simulationWrapperPath = ""
+        installer= ""
+        if ($platform == 'x64'){
+           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release\\MDSng_SimCoreExtensions.UnitTest.dll"
+           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x64\\Release\\CrashDataManagement.UnitTests.dll"
+           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release\\SimulationWrapper.UnitTest.dll"
+           $installer = "MDSng64_Installer.exe"
+        }
+        else{
+           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\Win32\\Release\\MDSng_SimCoreExtensions.UnitTest.dll"
+           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\Win32\\Release\\CrashDataManagement.UnitTests.dll"
+           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\Win32\\Release\\SimulationWrapper.UnitTest.dll"
+           $installer = "MDSng_Installer.exe"
+        }
+        write-host ::set-output name=simCoreExtenSionUnitTestPath::$simCorePath
+        write-host ::set-output name=crashManagementUnitTestPath::$crashManagementUnitTestPath 
+        write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath 
+        write-host ::set-output name=installerName::$installer 
+     shell: powershell 
+          
