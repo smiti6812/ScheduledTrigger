@@ -27,7 +27,7 @@ runs:
    - name: Initialize build parameters     
      id: unittestpath
      run: |
-        $platform =  ${{inputs.platform}}
+        $platform =  "${{inputs.platform}}"
         $simCorePath = ""
         $crashManagementPath = ""
         $simulationWrapperPath = ""
