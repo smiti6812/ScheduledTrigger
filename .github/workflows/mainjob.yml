@@ -24,5 +24,8 @@ jobs:
       - name: Print parameters
         id: unittestparams
         run: |
-          echo "${{steps.unittest.outputs.simCoreExtensionUnitTestPath}}"
+          echo "${{steps.unittest.outputs.simCoreExtenSionUnitTestPath}}"
+          echo "${{steps.unittest.outputs.crashManagementUnitTestPath}}"
+          echo "${{steps.unittest.outputs.simulationWrapperUnitTestPath}}"
+          echo "${{steps.unittest.outputs.installerName}}"
         shell: powershell
