@@ -3,13 +3,13 @@ name: My inputs
 on:
   workflow_dispatch:
     inputs:
-      name:
+      targetPlatform:
         type: choice
-        description: Who to greet
-        default: monalisa
+        description: Target platform
+        default: x64
         options:
-          - monalisa
-          - cschleiden    
+          - x64
+          - x86    
 jobs:
   greet:
     runs-on: windows-latest
@@ -17,17 +17,19 @@ jobs:
       - name: Checkout current repo
         uses: actions/checkout@v3
       - name: Send greeting
-        run: echo "${{ github.event.inputs.name }}"
+        run: echo "${{ github.event.inputs.targetPlatform }}"
       - name: Call initialize parameters
         id: unittest  
         uses: ./
         with:
-          platform: x64
+          platform: ${{ github.event.inputs.targetPlatform }}
       - name: Print parameters
         id: unittestparams
         run: |
           echo "${{steps.unittest.outputs.simCoreExtenSionUnitTestPath}}"
           echo "${{steps.unittest.outputs.crashManagementUnitTestPath}}"
+          echo "${{steps.unittest.outputs.crashManagementSearchDir}}"
           echo "${{steps.unittest.outputs.simulationWrapperUnitTestPath}}"
+          echo "${{steps.unittest.outputs.simulationWrapperSearchDir}}"
           echo "${{steps.unittest.outputs.installerName}}"
         shell: powershell
