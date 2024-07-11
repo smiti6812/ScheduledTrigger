@@ -48,5 +48,5 @@ runs:
         write-host ::set-output name=crashManagementUnitTestPath::$crashManagementUnitTestPath 
         write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath 
         write-host ::set-output name=installerName::$installer 
-     shell: powershell 
+
           
