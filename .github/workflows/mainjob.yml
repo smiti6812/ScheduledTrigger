@@ -28,19 +28,20 @@ jobs:
           echo "${{ github.event.inputs.targetPlatform }}"
           echo "${{ env.targetPlatform }}"
       - name: Call initialize parameters
-        id: unittest  
+        id: buildparampaths  
         uses: ./.github/workflows/Actions/
         with:
           platform: ${{ env.targetPlatform }}
       - name: Print parameters
-        id: unittestparams
+        id: printbuildparampaths
         run: |
          echo "Configuration: ${{ env.configuration }}"
-          echo "${{steps.unittest.outputs.simCoreExtenSionUnitTestPath}}"
-          echo "${{steps.unittest.outputs.simCoreExtensionSearchDir}}"
-          echo "${{steps.unittest.outputs.crashManagementUnitTestPath}}"
-          echo "${{steps.unittest.outputs.crashManagementSearchDir}}"
-          echo "${{steps.unittest.outputs.simulationWrapperUnitTestPath}}"
-          echo "${{steps.unittest.outputs.simulationWrapperSearchDir}}"
-          echo "${{steps.unittest.outputs.installerName}}"
+          echo "${{steps.buildparampaths.outputs.simCoreExtenSionUnitTestPath}}"
+          echo "${{steps.buildparampaths.outputs.simCoreExtensionSearchDir}}"
+          echo "${{steps.buildparampaths.outputs.crashManagementUnitTestPath}}"
+          echo "${{steps.buildparampaths.outputs.crashManagementSearchDir}}"
+          echo "${{steps.buildparampaths.outputs.simulationWrapperUnitTestPath}}"
+          echo "${{steps.buildparampaths.outputs.simulationWrapperSearchDir}}"
+          echo "${{steps.buildparampaths.outputs.installerName}}"
+          echo "${{steps.buildparampaths.outputs.targetBaseFolder}}"
         shell: powershell
