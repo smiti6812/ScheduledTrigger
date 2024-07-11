@@ -9,32 +9,35 @@ inputs:
  
 outputs: 
   simCoreExtensionUnitTestPath:
-    value: ${{steps.unittestpath.outputs.simCoreExtenSionUnitTestPath}}
+    value: ${{steps.buildparampaths.outputs.simCoreExtenSionUnitTestPath}}
     description: Path to SimCoreExtension UnitTests
   simCoreExtensionSearchDir:
-    value: ${{steps.unittestpath.outputs.simCoreExtensionSearchDir}}
+    value: ${{steps.buildparampaths.outputs.simCoreExtensionSearchDir}}
     description: Path to SimCoreExtension searchdir
   crashManagementSearchDir:
-    value: ${{steps.unittestpath.outputs.crashManagementSearchDir}}
+    value: ${{steps.buildparampaths.outputs.crashManagementSearchDir}}
     description: Path to CrashManagement searchdir 
   crashManagementUnitTestPath:
-    value: ${{steps.unittestpath.outputs.crashManagementUnitTestPath}}
+    value: ${{steps.buildparampaths.outputs.crashManagementUnitTestPath}}
     description: Path to CrashManagement UnitTests
   simulationWrapperUnitTestPath:
-    value: ${{steps.unittestpath.outputs.simulationWrapperUnitTestPath}}
+    value: ${{steps.buildparampaths.outputs.simulationWrapperUnitTestPath}}
     description: Path to SimulationWrapper UnitTests
   simulationWrapperSearchDir:
-    value: ${{steps.unittestpath.outputs.simulationWrapperSearchDir}}
+    value: ${{steps.buildparampaths.outputs.simulationWrapperSearchDir}}
     description: Path to SimulationWrapper searchdir 
   installerName:
-    value: ${{steps.unittestpath.outputs.installerName}}
+    value: ${{steps.buildparampaths.outputs.installerName}}
     description: Name of the installer based on target platform information
+  targetBaseFolder:
+    value: ${{steps.buildparampaths.outputs.targetBaseFolder}}
+    description: The path to the folder where the executable and the test results shall be delivered.
 
 runs:
   using: "composite"
   steps:     
    - name: Initialize build parameters     
-     id: unittestpath
+     id: buildparampaths
      shell: powershell
      run: |
         $platform =  "${{inputs.platform}}"
@@ -45,6 +48,7 @@ runs:
         $crashManagementSearch = ""
         $simulationWrapperSearch = ""
         $installer= ""
+        $targetBase = ""
         if ($platform -eq 'x64'){
            $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release\\MDSng_SimCoreExtensions.UnitTest.dll /logger:trx /Platform:X64"
            $simCoreSearch = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release"
@@ -53,6 +57,7 @@ runs:
            $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release\\SimulationWrapper.UnitTest.dll /logger:trx /Platform:X64"
            $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release"
            $installer = "MDSng64_Installer.exe"
+           $targetBase = "\\bosch.com\dfsrb\DfsDE\DIV\CS\DE_CS$\Prj\PS\Support\Tools\MDSng_64Bit\ContinuousIntegration\GitHub_Builds"
         }
         else{
            $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\Win32\\Release\\MDSng_SimCoreExtensions.UnitTest.dll /logger:trx /Platform:X86"
@@ -60,8 +65,9 @@ runs:
            $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\Win32\\Release\\CrashDataManagement.UnitTests.dll /logger:trx /Platform:X86"
            $crashManagementSearch = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x86\\Release"
            $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\Win32\\Release\\SimulationWrapper.UnitTest.dll /logger:trx /Platform:X86"
-           $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x86\\Release"
+           $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x86\\Release"           
            $installer = "MDSng_Installer.exe"
+           $targetBase = "\\bosch.com\dfsrb\DfsDE\DIV\CS\DE_CS$\Prj\PS\Support\Tools\MDSng_64Bit\ContinuousIntegration\GitHub_Builds"
         }
         write-host ::set-output name=simCoreExtensionUnitTestPath::$simCorePath
         write-host ::set-output name=simCoreExtensionSearchDir::$simCoreSearch
@@ -69,6 +75,7 @@ runs:
         write-host ::set-output name=crashManagementSearchDir::$crashManagementSearch
         write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath
         write-host ::set-output name=simulationWrapperSearchDir::$simulationWrapperSearch 
-        write-host ::set-output name=installerName::$installer 
+        write-host ::set-output name=installerName::$installer
+        write-host ::set-output name=targetBaseFolder::$targetBase 
 
           
