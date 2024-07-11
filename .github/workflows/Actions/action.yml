@@ -67,7 +67,7 @@ runs:
            $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\Win32\\Release\\SimulationWrapper.UnitTest.dll /logger:trx /Platform:X86"
            $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x86\\Release"           
            $installer = "MDSng_Installer.exe"
-           $targetBase = "\\bosch.com\dfsrb\DfsDE\DIV\CS\DE_CS$\Prj\PS\Support\Tools\MDSng_64Bit\ContinuousIntegration\GitHub_Builds"
+           $targetBase = "\\bosch.com\dfsrb\DfsDE\DIV\CS\DE_CS$\Prj\PS\Support\Tools\MDSng\ContinuousIntegration\GitHub_Builds"
         }
         write-host ::set-output name=simCoreExtensionUnitTestPath::$simCorePath
         write-host ::set-output name=simCoreExtensionSearchDir::$simCoreSearch
