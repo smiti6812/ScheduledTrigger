@@ -1,7 +1,15 @@
 name: My inputs
 
 on:
-  push:   
+  push:
+    inputs:
+      targetPlatform:
+        type: choice
+        description: Target platform
+        default: x64
+        options:
+          - x64         
+          - x86
   workflow_dispatch:
     inputs:
       targetPlatform:
