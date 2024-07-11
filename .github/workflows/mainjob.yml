@@ -1,4 +1,4 @@
-name: Mixed inputs
+name: My inputs
 on:
   workflow_dispatch:
     inputs:
