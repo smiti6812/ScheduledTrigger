@@ -16,3 +16,13 @@ jobs:
     steps:
       - name: Send greeting
         run: echo "${{ github.event.inputs.name }}"
+      - name: Call initialize parameters
+        id: unittest  
+        uses: ./action.yml
+        with:
+          platform: x64
+      - name: Print parameters
+        id: unittestparams
+        run: |
+          echo "${{steps.unittest.outputs.simCoreExtensionUnitTestPath}}"
+        shell: powershell
