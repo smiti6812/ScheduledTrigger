@@ -18,7 +18,27 @@ env:
   targetPlatform: ${{github.event.inputs.targetPlatform == '' && 'x64' || github.event.inputs.targetPlatform }}
   
 jobs:
+  initialize_params:
+    runs-on: windows-latest
+    outputs:
+      simCoreExtenSionUnitTestPath: ${{ steps.buildparampaths.outputs.simCoreExtenSionUnitTestPat}}
+      simCoreExtensionSearchDir: ${{ steps.buildparampaths.outputs.simCoreExtensionSearchDir }}
+      crashManagementUnitTestPath: ${{ steps.buildparampaths.outputs.crashManagementUnitTestPath }}
+      crashManagementSearchDir: ${{ steps.buildparampaths.outputs.crashManagementSearchDir }}
+      simulationWrapperUnitTestPath: ${{ steps.buildparampaths.outputs.simulationWrapperUnitTestPath }}
+      simulationWrapperSearchDir: ${{ steps.buildparampaths.outputs.simulationWrapperSearchDir }}
+      installerName: ${{steps.buildparampaths.outputs.installerName }}
+      targetBaseFolder: ${{ steps.buildparampaths.outputs.targetBaseFolder }}      
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v3
+      - name: Initialize platform related params
+        id: buildparampaths
+        uses: ./.github/workflows/Actions/
+        with:
+          platform: ${{ env.targetPlatform }}
   greet:
+    needs: initialize_params
     runs-on: windows-latest
     steps:
       - name: Checkout current repo
@@ -36,12 +56,12 @@ jobs:
         id: printbuildparampaths
         run: |
          echo "Configuration: ${{ env.configuration }}"
-          echo "${{steps.buildparampaths.outputs.simCoreExtenSionUnitTestPath}}"
-          echo "${{steps.buildparampaths.outputs.simCoreExtensionSearchDir}}"
-          echo "${{steps.buildparampaths.outputs.crashManagementUnitTestPath}}"
-          echo "${{steps.buildparampaths.outputs.crashManagementSearchDir}}"
-          echo "${{steps.buildparampaths.outputs.simulationWrapperUnitTestPath}}"
-          echo "${{steps.buildparampaths.outputs.simulationWrapperSearchDir}}"
-          echo "${{steps.buildparampaths.outputs.installerName}}"
-          echo "${{steps.buildparampaths.outputs.targetBaseFolder}}"
+          echo "${{needs.initialize_params.outputs.simCoreExtenSionUnitTestPath}}"
+          echo "${{needs.initialize_params.outputs.simCoreExtensionSearchDir}}"
+          echo "${{needs.initialize_params.outputs.crashManagementUnitTestPath}}"
+          echo "${{needs.initialize_paramss.outputs.crashManagementSearchDir}}"
+          echo "${{needs.initialize_params.outputs.simulationWrapperUnitTestPath}}"
+          echo "${{needs.initialize_params.outputs.simulationWrapperSearchDir}}"
+          echo "${{needs.initialize_params.outputs.installerName}}"
+          echo "${{needs.initialize_params.outputs.targetBaseFolder}}"
         shell: powershell
