@@ -29,7 +29,7 @@ jobs:
           echo "${{ env.targetPlatform }}"
       - name: Call initialize parameters
         id: unittest  
-        uses: ./
+        uses: ./initialize_action
         with:
           platform: ${{ env.targetPlatform }}
       - name: Print parameters
