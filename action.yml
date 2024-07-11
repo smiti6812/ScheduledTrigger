@@ -64,7 +64,7 @@ runs:
            $installer = "MDSng_Installer.exe"
         }
         write-host ::set-output name=simCoreExtensionUnitTestPath::$simCorePath
-        write-host ::set-output name=simCoreExtensionSearchDir::$simCoreSearchDir
+        write-host ::set-output name=simCoreExtensionSearchDir::$simCoreSearch
         write-host ::set-output name=crashManagementUnitTestPath::$crashManagementUnitTestPath
         write-host ::set-output name=crashManagementSearchDir::$crashManagementSearch
         write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath
