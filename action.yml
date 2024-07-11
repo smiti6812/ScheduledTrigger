@@ -8,15 +8,24 @@ inputs:
 
  
 outputs: 
-  simCoreExtenSionUnitTestPath:
+  simCoreExtensionUnitTestPath:
     value: ${{steps.unittestpath.outputs.simCoreExtenSionUnitTestPath}}
     description: Path to SimCoreExtension UnitTests
+  simCoreExtensionSearchDir:
+    value: ${{steps.unittestpath.outputs.simCoreExtensionSearchDir}}
+    description: Path to SimCoreExtension searchdir
+  crashManagementSearchDir:
+    value: ${{steps.unittestpath.outputs.crashManagementSearchDir}}
+    description: Path to CrashManagement searchdir 
   crashManagementUnitTestPath:
     value: ${{steps.unittestpath.outputs.crashManagementUnitTestPath}}
     description: Path to CrashManagement UnitTests
   simulationWrapperUnitTestPath:
     value: ${{steps.unittestpath.outputs.simulationWrapperUnitTestPath}}
     description: Path to SimulationWrapper UnitTests
+  simulationWrapperSearchDir:
+    value: ${{steps.unittestpath.outputs.simulationWrapperSearchDir}}
+    description: Path to SimulationWrapper searchdir 
   installerName:
     value: ${{steps.unittestpath.outputs.installerName}}
     description: Name of the installer based on target platform information
@@ -32,22 +41,34 @@ runs:
         $simCorePath = ""
         $crashManagementPath = ""
         $simulationWrapperPath = ""
+        $simCoreSearch = ""
+        $crashManagementSearch = ""
+        $simulationWrapperSearch = ""
         $installer= ""
         if ($platform -eq 'x64'){
-           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release\\MDSng_SimCoreExtensions.UnitTest.dll"
-           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x64\\Release\\CrashDataManagement.UnitTests.dll"
-           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release\\SimulationWrapper.UnitTest.dll"
+           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release\\MDSng_SimCoreExtensions.UnitTest.dll /logger:trx /Platform:X64"
+           $simCoreSearch = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release"
+           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x64\\Release\\CrashDataManagement.UnitTests.dll /logger:trx /Platform:X64"
+           $crashManagementSearch = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x64\\Release"
+           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release\\SimulationWrapper.UnitTest.dll /logger:trx /Platform:X64"
+           $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release"
            $installer = "MDSng64_Installer.exe"
         }
         else{
-           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\Win32\\Release\\MDSng_SimCoreExtensions.UnitTest.dll"
-           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\Win32\\Release\\CrashDataManagement.UnitTests.dll"
-           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\Win32\\Release\\SimulationWrapper.UnitTest.dll"
+           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\Win32\\Release\\MDSng_SimCoreExtensions.UnitTest.dll /logger:trx /Platform:X86"
+           $simCoreSearch = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x86\\Release"
+           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\Win32\\Release\\CrashDataManagement.UnitTests.dll /logger:trx /Platform:X86"
+           $crashManagementSearch = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x86\\Release"
+           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\Win32\\Release\\SimulationWrapper.UnitTest.dll /logger:trx /Platform:X86"
+           $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x86\\Release"
            $installer = "MDSng_Installer.exe"
         }
-        write-host ::set-output name=simCoreExtenSionUnitTestPath::$simCorePath
-        write-host ::set-output name=crashManagementUnitTestPath::$crashManagementUnitTestPath 
-        write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath 
+        write-host ::set-output name=simCoreExtensionUnitTestPath::$simCorePath
+        write-host ::set-output name=simCoreExtensionSearchDir::$simCoreSearchDir
+        write-host ::set-output name=crashManagementUnitTestPath::$crashManagementUnitTestPath
+        write-host ::set-output name=crashManagementSearchDir::$crashManagementSearch
+        write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath
+        write-host ::set-output name=simulationWrapperSearchDir::$simulationWrapperSearch 
         write-host ::set-output name=installerName::$installer 
 
           
