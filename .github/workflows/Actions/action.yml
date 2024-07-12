@@ -36,7 +36,7 @@ outputs:
 runs:
   using: "composite"
   steps:     
-   - name: Initialize build parameters     
+   - name: Initialize build parameters (${{inputs.platform}})    
      id: buildparampaths
      shell: powershell
      run: |
