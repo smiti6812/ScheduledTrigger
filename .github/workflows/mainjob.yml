@@ -52,6 +52,9 @@ jobs:
         uses: ./.github/workflows/Actions/
         with:
           platform: ${{ env.targetPlatform }}
+      - name : Display platform info
+        run: ./.github/workflows/bin/displayPlatform.ps1 ${{ env.targetPlatform }}
+        shell: powershell
       - name: Print parameters
         id: printbuildparampaths
         run: |
