@@ -50,7 +50,7 @@ jobs:
           echo "${{ env.targetPlatform }}"
       - name: Create an error
         id: createError
-        run: $result = 1/0
+        run: Get-Content -Path "C:\Logs\AppLog.txt" #$result = 1/0
         shell: powershell
       - name: Check Create an error step
         id: checkerror1
