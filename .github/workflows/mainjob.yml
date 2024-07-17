@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "${{ github.event.inputs.targetPlatform }}"
           echo "${{ env.targetPlatform }}"
-      - name: Create an error
+      - name: Create an error        
         id: createError
         continue-on-error: true
         run: Get-Content -Path "C:\Logs\AppLog.txt" #$result = 1/0
@@ -57,7 +57,7 @@ jobs:
         id: checkerror1
         run: |
             ./.github/workflows/bin/ErrorCheck.ps1 "${{ steps.createError.outcome }}"
-            echo "Create an error step was ${{ steps.checkerror1.errorMessage }}"
+            echo "Create an error step was ${{ steps.createError.errorMessage }}"
         shell: powershell    
       - name: Call initialize parameters
         id: buildparampaths  
