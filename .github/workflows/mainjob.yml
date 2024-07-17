@@ -57,7 +57,7 @@ jobs:
         id: checkerror1
         run: |
             ./.github/workflows/bin/ErrorCheck.ps1 "${{ steps.createError.outcome }}"
-            echo "Create an error step was ${{ steps.createError.errorMessage }}"
+            echo "Create an error step was ${{ steps.createError.outputs.errorMessage }}"
         shell: powershell    
       - name: Call initialize parameters
         id: buildparampaths  
