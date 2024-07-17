@@ -17,8 +17,8 @@ env:
   configuration: Release
   targetPlatform: ${{github.event.inputs.targetPlatform == '' && 'x64' || github.event.inputs.targetPlatform }}
   
-jobs:
-  initialize_params:
+jobs:  
+  initialize_params:  
     runs-on: windows-latest
     outputs:
       simCoreExtenSionUnitTestPath: ${{ steps.buildparampaths.outputs.simCoreExtenSionUnitTestPat}}
@@ -28,7 +28,7 @@ jobs:
       simulationWrapperUnitTestPath: ${{ steps.buildparampaths.outputs.simulationWrapperUnitTestPath }}
       simulationWrapperSearchDir: ${{ steps.buildparampaths.outputs.simulationWrapperSearchDir }}
       installerName: ${{steps.buildparampaths.outputs.installerName }}
-      targetBaseFolder: ${{ steps.buildparampaths.outputs.targetBaseFolder }}      
+      targetBaseFolder: ${{ steps.buildparampaths.outputs.targetBaseFolder }}   
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
@@ -38,6 +38,7 @@ jobs:
         with:
           platform: ${{ env.targetPlatform }}
   greet:
+    continue-on-error: true
     needs: initialize_params
     runs-on: windows-latest
     steps:
