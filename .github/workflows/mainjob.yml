@@ -47,6 +47,16 @@ jobs:
         run: |
           echo "${{ github.event.inputs.targetPlatform }}"
           echo "${{ env.targetPlatform }}"
+      - name: Create an error
+        id: createError
+        run: $result = 1/0
+        shell: powershell
+      - name: Check Create an error step
+        id: checkerror1
+        run: |
+            ErrorCheck "${{ steps.createError.outcome }}"
+            echo "Create an error step was ${{ steps.checkerror1.errorMessage }}"
+        shell: powershell    
       - name: Call initialize parameters
         id: buildparampaths  
         uses: ./.github/workflows/Actions/
