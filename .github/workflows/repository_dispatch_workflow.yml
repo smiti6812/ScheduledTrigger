@@ -1,0 +1,12 @@
+name: Repository Dispatch
+on:
+  repository_dispatch:
+    types: [my-event]
+jobs:
+  myEvent:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: smiti6812/ScheduledTrigger
+      - run: echo ${{ github.event.client_payload.platform }}
