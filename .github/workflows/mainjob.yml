@@ -40,6 +40,7 @@ jobs:
     continue-on-error: true
     needs: initialize_params
     runs-on: windows-latest
+    if: ${{ endsWith(github.ref, 'main') && needs.initialize_params.result == 'success' }}
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
