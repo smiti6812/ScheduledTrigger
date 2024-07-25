@@ -70,6 +70,7 @@ jobs:
       - name: Print parameters
         id: printbuildparampaths
         run: |
+         echo "Result of initialize parameters: ${{needs.initialize_params.result}}"
          echo "Brach name: ${{github.ref}}"
          echo "Configuration: ${{ env.configuration }}"
           echo "${{needs.initialize_params.outputs.simCoreExtenSionUnitTestPath}}"
