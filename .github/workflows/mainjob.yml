@@ -1,5 +1,4 @@
 name: My inputs
-
 on:
   push:   
   workflow_dispatch:
