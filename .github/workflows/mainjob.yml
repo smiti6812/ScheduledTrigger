@@ -70,6 +70,7 @@ jobs:
       - name: Print parameters
         id: printbuildparampaths
         run: |
+         echo "Brach name: ${{github.ref}}"
          echo "Configuration: ${{ env.configuration }}"
           echo "${{needs.initialize_params.outputs.simCoreExtenSionUnitTestPath}}"
           echo "${{needs.initialize_params.outputs.simCoreExtensionSearchDir}}"
@@ -83,7 +84,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.FINEPAT}}
+          token: ${{ secrets.PAT}}
           repository: smiti6812/ScheduledTrigger
           event-type: my-event
           client-payload: '{"ref": "${{ github.ref }}", "platform": "x86", "version": "7.6.2.44"}'  
