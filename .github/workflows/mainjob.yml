@@ -86,4 +86,4 @@ jobs:
           token: ${{ secrets.PAT }}
           repository: smiti6812/ScheduledTrigger
           event-type: my-event
-          client-payload: '{"version": "7.2.6.44", "platform": "x86"}'  
+          client-payload: '{"ref": "${{ github.ref }}", "platform": "x86"}'  
