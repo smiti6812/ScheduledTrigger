@@ -13,7 +13,9 @@ jobs:
       - run: echo "First workflow was a success"
       - name: Download artifact
         run: |
-          gh run download -n my-artifact
+          gh run download -n my-artifact          
+        env:
+          GH_TOKEN: ${{ github.token }}
       
 
   on-failure:
