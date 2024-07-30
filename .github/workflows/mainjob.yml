@@ -88,4 +88,13 @@ jobs:
           token: ${{ secrets.PAT}}
           repository: smiti6812/ScheduledTrigger
           event-type: my-event
-          client-payload: '{"ref": "${{ github.ref }}", "platform": "x86", "version": "7.6.2.44"}'  
+          client-payload: '{"ref": "${{ github.ref }}", "platform": "x86", "version": "7.6.2.44"}'
+      - name: Write to file
+        run: |
+          "Hello" | Out-File ./test.txt
+        shell: powershell
+      - name: Upload txt to artifacts  
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: ./test.txt
