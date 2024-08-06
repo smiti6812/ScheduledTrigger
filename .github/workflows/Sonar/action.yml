@@ -5,44 +5,14 @@ name: Get Sonar Path
 runs:
   using: "composite"
   steps:     
-   - name: Initialize build parameters (${{inputs.platform}})    
-     id: buildparampaths
-     shell: powershell
+   - name: Checkout current repo
+     uses: actions/checkout@v3
+   - name: Start Sonar
+     id: startSonar
      run: |
-        $platform =  "${{inputs.platform}}"
-        $simCorePath = ""
-        $crashManagementPath = ""
-        $simulationWrapperPath = ""
-        $simCoreSearch = ""
-        $crashManagementSearch = ""
-        $simulationWrapperSearch = ""
-        $installer= ""
-        $targetBase = ""
-        if ($platform -eq 'x64'){
-           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release\\MDSng_SimCoreExtensions.UnitTest.dll /logger:trx /Platform:X64"
-           $simCoreSearch = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x64\\Release"
-           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x64\\Release\\CrashDataManagement.UnitTests.dll /logger:trx /Platform:X64"
-           $crashManagementSearch = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x64\\Release"
-           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release\\SimulationWrapper.UnitTest.dll /logger:trx /Platform:X64"
-           $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x64\\Release"
-           $installer = "MDSng64_Installer.exe"
-           $targetBase = "\\bosch.com\dfsrb\DfsDE\DIV\CS\DE_CS$\Prj\PS\Support\Tools\MDSng_64Bit\ContinuousIntegration\GitHub_Builds"
-        }
-        else{
-           $simCorePath = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\Win32\\Release\\MDSng_SimCoreExtensions.UnitTest.dll /logger:trx /Platform:X86"
-           $simCoreSearch = ".\\MDSng\\MDSng_SimCoreExtensions\\MDSng_SimCoreExtensions.UnitTest\\bin\\x86\\Release"
-           $crashManagementPath = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\Win32\\Release\\CrashDataManagement.UnitTests.dll /logger:trx /Platform:X86"
-           $crashManagementSearch = ".\\MDSng\\MDSng_CrashDataManagement\\UnitTests\\bin\\x86\\Release"
-           $simulationWrapperPath = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\Win32\\Release\\SimulationWrapper.UnitTest.dll /logger:trx /Platform:X86"
-           $simulationWrapperSearch = ".\\MDSng\\SimulationWrapper\\SimulationWrapper.UnitTest\\bin\\x86\\Release"           
-           $installer = "MDSng_Installer.exe"
-           $targetBase = "\\bosch.com\dfsrb\DfsDE\DIV\CS\DE_CS$\Prj\PS\Support\Tools\MDSng\ContinuousIntegration\GitHub_Builds"
-        }
-        write-host ::set-output name=simCoreExtensionUnitTestPath::$simCorePath
-        write-host ::set-output name=simCoreExtensionSearchDir::$simCoreSearch
-        write-host ::set-output name=crashManagementUnitTestPath::$crashManagementPath
-        write-host ::set-output name=crashManagementSearchDir::$crashManagementSearch
-        write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath
-        write-host ::set-output name=simulationWrapperSearchDir::$simulationWrapperSearch 
-        write-host ::set-output name=installerName::$installer
-        write-host ::set-output name=targetBaseFolder::$targetBase 
+        ${{ github.action_path }}.\bin\startSonar.ps1
+     env:
+       actionPath: ${{ github.action_path }}
+   - name: Show Sonar Path        
+     run: echo ${{ steps.startSonar.outputs.sonarPath }}
+     shell: powershell
