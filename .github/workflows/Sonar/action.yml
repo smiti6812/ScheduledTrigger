@@ -9,6 +9,7 @@ runs:
      uses: actions/checkout@v3
    - name: Start Sonar
      id: startSonar
+     shell: powershell
      run: |
         ${{ github.action_path }}.\bin\startSonar.ps1
      env:
