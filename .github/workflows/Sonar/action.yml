@@ -15,5 +15,6 @@ runs:
      env:
        actionPath: ${{ github.action_path }}
    - name: Show Sonar Path        
-     run: echo "My UserFolder: ${{ steps.startSonar.outputs.sonarPath }}"
+     run: | 
+       echo "My UserFolder: ${{ steps.startSonar.outputs.sonarPath }}"
      shell: powershell
