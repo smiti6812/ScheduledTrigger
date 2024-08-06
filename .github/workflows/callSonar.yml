@@ -11,12 +11,6 @@ jobs:
     steps:
       - name: Checkout current repo
         uses: actions/checkout@v3
-      - name: Start Sonar
-        id: startSonar
-        run: |
-           ${{ github.action_path }}.\bin\startSonar.ps1
-        env:
-          actionPath: ${{ github.action_path }}
-      - name: Show Sonar Path        
-        run: echo ${{ steps.startSonar.outputs.sonarPath }}
-        shell: powershell
+      - name: Call Sonar      
+        id: sonar  
+        uses: ./.github/workflows/Sonar/
