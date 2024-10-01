@@ -76,6 +76,7 @@ runs:
         write-host ::set-output name=simulationWrapperUnitTestPath::$simulationWrapperPath
         write-host ::set-output name=simulationWrapperSearchDir::$simulationWrapperSearch 
         write-host ::set-output name=installerName::$installer
-        write-host ::set-output name=targetBaseFolder::$targetBase 
+        #write-host ::set-output name=targetBaseFolder::$targetBase 
+        echo "targetBaseFolder=$targetBase" >> $ENV:GITHUB_OUTPUT
 
           
